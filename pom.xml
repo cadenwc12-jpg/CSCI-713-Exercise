@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>CSCI-713-Exercise</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -23,7 +22,6 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -34,56 +32,58 @@
 
     <build>
         <plugins>
-            <!-- JaCoCo for line and branch coverage -->
-            <plugin>
-                  <groupId>org.jacoco</groupId>
-                  <artifactId>jacoco-maven-plugin</artifactId>
-                  <version>0.8.14</version>
-                  <executions>
-                      <execution>
-                          <goals>
-                              <goal>prepare-agent</goal>
-                          </goals>
-                      </execution>
-                      <execution>
-                           <id>report</id>
-                          <phase>test</phase>
-                          <goals>
-                              <goal>report</goal>
-                          </goals>
-                      </execution>
-                  </executions>
-               </plugin>
-
-        <!-- PIT for mutation coverage (with JUnit 5 support) -->
-        <plugin>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-maven</artifactId>
-            <version>1.18.2</version>
-            <dependencies>
-                <dependency>
-                    <groupId>org.pitest</groupId>
-                    <artifactId>pitest-junit5-plugin</artifactId>
-                    <version>1.2.3</version>
-                </dependency>
-            </dependencies>
-            <configuration>
-                <!-- Adjust to your package name, e.g., com.example.* or just * if default package -->
-                <targetClasses>
-                    <param>*</param>
-                </targetClasses>
-                <targetTests>
-                    <param>*</param>
-                </targetTests>
-            </configuration>
-        </plugin>
-            <!-- Maven Surefire Plugin to run tests -->
+            <!-- Maven Surefire Plugin to run tests (updated to latest) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.5.4</version>
+            </plugin>
+
+            <!-- JaCoCo for line and branch coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- PIT for mutation coverage (with JUnit 5 support) -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.22.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!-- Targets all classes and tests (default package) -->
+                    <targetClasses>
+                        <param>*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>*</param>
+                    </targetTests>
+                    <!-- Optional: increase timeout if tests are slow -->
+                    <timeoutConst>4000</timeoutConst>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
